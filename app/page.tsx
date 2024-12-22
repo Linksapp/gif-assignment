@@ -81,27 +81,33 @@ export default function Home() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', alignItems: 'center' }}>
-      <div style={{ flex: 1, overflowY: 'auto', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        {showGifSelector && (
-          <div id="gif-container" style={{ maxHeight: '500px', overflowY: 'scroll', border: '1px solid #ccc', padding: '10px', backgroundColor: '#f9f9f9', width: '80%', position: 'absolute', bottom: '60px', display: 'flex', flexWrap: 'wrap', gap: '10px' }}></div>
-        )}
-        {selectedGif && (
-          <div style={{ marginBottom: '10px', textAlign: 'center' }}>
-            <img src={selectedGif} alt="Выбранный GIF" style={{ maxWidth: '300px', marginBottom: '10px' }} />
-          </div>
-        )}
-      </div>
-      <div style={{ padding: '10px', position: 'relative', width: '80%' }}>
-        <input
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyDown={handleInputKeyPress}
-          placeholder="Введите команду..."
-          style={{ width: '100%', padding: '10px', boxSizing: 'border-box', color: '#333', backgroundColor: '#fff', borderColor: '#ccc', borderWidth: '1px', borderStyle: 'solid' }} // Увеличен контраст шрифта
-        />
-      </div>
+    <div className="flex flex-col h-screen items-center bg-white">
+    <div className="flex-1 overflow-y-auto w-full flex justify-center items-center">
+      {showGifSelector && (
+        <div
+          id="gif-container"
+          className="max-h-[525px] overflow-y-scroll border border-gray-300 p-2 bg-white w-4/5 absolute bottom-16 flex flex-wrap gap-2 justify-center"
+        ></div>
+      )}
+      {selectedGif && (
+        <div className="mb-2 text-center">
+          <img src={selectedGif} alt="Выбранный GIF" className="max-w-[300px] mb-2" />
+        </div>
+      )}
     </div>
+    <div className="p-2 relative w-4/5 border-t border-light-gray bg-gray-200">
+      <input
+        type="text"
+        value={inputValue}
+        onChange={handleInputChange}
+        onKeyDown={handleInputKeyPress}
+        placeholder="Введите команду..."
+        className="w-full p-2 box-border text-gray-800 bg-white border border-gray-300"
+      />
+      <span className={`absolute left-4 top-1/2 transform -translate-y-1/2 ${inputValue.includes('/gif') ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white' : 'text-gray-800'}`}>
+        {inputValue.includes('/gif') ? '/gif' : ''}
+      </span>
+    </div>
+  </div>
   );
 }
